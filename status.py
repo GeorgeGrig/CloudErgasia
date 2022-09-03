@@ -14,14 +14,14 @@ def check_kibana_status():
     try:
         return str(subprocess.check_output("docker inspect --format='{{json .State.Health}}' " + container_name, shell=True)).split('"Status":"')[1].split('"',1)[0]
     except:
-        return 'Could not get kibana status'
+        return False
 
 def check_elasticsearch_status():
     container_name ='elasticsearch'
     try:
         return str(subprocess.check_output("docker inspect --format='{{json .State.Health}}' " + container_name, shell=True)).split('"Status":"')[1].split('"',1)[0]
     except:
-        return 'Could not get elasticsearch status'
+        return False
 
 def check_docker():
     try:

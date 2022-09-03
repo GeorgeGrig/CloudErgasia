@@ -12,7 +12,7 @@ if status.is_elastic_local():
     ip = 'localhost'
     verify=True
 else:
-    ip = '192.168.1.8'
+    ip = '192.168.1.9'
     verify=False
 
 # Create the client instance
@@ -26,9 +26,87 @@ client = Elasticsearch(
 
 # Successful response!
 # print(client.info())
-myquery={"query": {"match_all": {}}}
-resp = client.search(index="packetbeat-7.16.0", body=myquery)
+myquery = {
+  "query": {
+    "bool": {
+      "must": {
+        "match": {      
+          "_id": 'bnNe2oIBSKjFtKDgBQ1n'
+        }
+      }
+    }
+  }
+}
+myquery = {
+  "query": {
+    "bool": {
+      "must": {
+        "match": {      
+          "destination.port": '5044'
+        }
+      }
+    }
+  }
+}
+myquery = {
+  "query": {
+    "bool": {
+      "must": {
+        "match": {       
+          "destination.packets": '1569'
+        }
+      }
+    }
+  }
+}
+
+myquery = {
+  "query": {
+    "bool": {
+      "must": {
+        "match": {       
+          "destination.packets": '1569'
+        }
+      },
+      "must": {
+        "match": {      
+          "_id": 'bnNe2oIBSKjFtKDgBQ1n'
+        }
+      }
+    }
+  }
+}
+
+myquery = {
+  "query": {
+    "wildcard": {
+        "_id": 'bnNe2oIBSKjFtKDgBQ1n'
+    }
+  }
+}
+
+myquery = {
+  "query": {
+    "bool":{
+        "filter": [
+            # {"match": {"destination.packets": '1569'}},
+            # {"match": {"_id": 'bnNe2oIBSKjFtKDgBQ1n'}}
+        ]
+    }
+  }
+}
+myquery = {
+"bool":{
+    "filter": [
+        # {"match": {"destination.packets": '1569'}},
+        # {"match": {"_id": 'bnNe2oIBSKjFtKDgBQ1n'}}
+    ]
+}
+}
+# myquery={"query": {"match_all": {}}}
+# resp = client.search(index="packetbeat-7.16.0", body=myquery, size=999)
+resp = client.search(index="packetbeat-7.16.0", query= myquery, size=999)
 print("Got %d Hits:" % resp['hits']['total']['value'])
 for hit in resp['hits']['hits']:
-    print("%(timestamp)s %(author)s: %(text)s" % hit["_source"])
+    print("%(agent)s %(host)s: %(tags)s" % hit["_source"])
 # print(res)

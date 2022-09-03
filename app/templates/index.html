@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CloudErgasiaThingy</title>
+</head>
+<body>
+    <h3>Status: 
+        {% if elastic_local %}<span style="color:green;">Yes</span> 
+        Docker online: {% if docker_status %}<span style="color:green;">Yes</span>{% else %}<span style="color:red;">No</span>{% endif %}
+        Elasticsearch: {% if elastic_status %}<span style="color:green;">{{elastic_status}}</span>{% else %}<span style="color:red;">Offline</span>{% endif %}
+        Kibana: {% if kibana_status %}<span style="color:green;">{{kibana_status}}</span>{% else %}<span style="color:red;">Offline</span>{% endif %}
+        {% else %}<span style="color:red;">Remote</span>{% endif %}</h3>
+</body>
+</html>
