@@ -5,55 +5,83 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CloudErgasiaThingy</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 </head>
 <body>
-    <h3>Status: 
+    <!-- <h3>Status: 
         {% if elastic_local %}<span style="color:green;">Yes</span> 
         Docker online: {% if docker_status %}<span style="color:green;">Yeap</span>{% else %}<span style="color:red;">No</span>{% endif %}
         Elasticsearch: {% if elastic_status %}<span style="color:green;">{{elastic_status}}</span>{% else %}<span style="color:red;">Offline</span>{% endif %}
         Kibana: {% if kibana_status %}<span style="color:green;">{{kibana_status}}</span>{% else %}<span style="color:red;">Offline</span>{% endif %}
         {% else %}<span style="color:red;">Remote</span>{% endif %}
-    </h3>
+    </h3> -->
+    <ul>
+        {% if elastic_local %}
+        <li><a>Status:<span style="color:#77a733;">Yes</span> </a></li>
+        <li><a>Docker online: {% if docker_status %}<span style="color:#77a733;">Yeap</span>{% else %}<span style="color:#d03344;">No</span>{% endif %}</a></li>
+        <li><a>Elasticsearch: {% if elastic_status %}<span style="color:#77a733;">{{elastic_status}}</span>{% else %}<span style="color:#d03344;">Offline</span>{% endif %}</a></li>
+        <li><a> Kibana: {% if kibana_status %}<span style="color:#77a733;">{{kibana_status}}</span>{% else %}<span style="color:#d03344;">Offline</span>{% endif %} </a></li>
+        {% else %}
+        <li><a>Status: <span style="color:#d03344;">Remote</span></a></li>
+        {% endif %}
+    </ul> 
 
     <form action="" method="post" novalidate>
         {{ form.hidden_tag() }}
-        <p>
-            {{ form.no_results.label }}<br>
-            {{ form.no_results(size=32) }}
-        </p>
-        <p>
-            {{ form.index.label }}<br>
-            {{ form.index(size=32) }}
-        </p>
-        <p>
-            {{ form.destination_packets.label }}<br>
-            {{ form.destination_packets(size=32) }}
-        </p>
-        <p>
-            {{ form.destination_port.label }}<br>
-            {{ form.destination_port(size=32) }}
-        </p>
-        <p>
-            {{ form.event_duration.label }}<br>
-            {{ form.event_duration(size=32) }}
-        </p>
-        <p>
-            {{ form.network_bytes.label }}<br>
-            {{ form.network_bytes(size=32) }}
-        </p>
-        <p>
-            {{ form.source_port.label }}<br>
-            {{ form.source_port(size=32) }}
-        </p>
-        <p>{{ form.match_all() }} {{ form.match_all.label }}</p>
-        <p>{{ form.submit() }}</p>
-    </form>
+        <div class="parent">
+            <div class="div1">
+                <p>
+                    {{ form.no_results.label }}<br>
+                    {{ form.no_results(size=32) }}
+                </p>
+                <p>
+                    {{ form.index.label }}<br>
+                    {{ form.index(size=32) }}
+                </p>
+                <p>
+                    {{ form.destination_packets.label }}<br>
+                    {{ form.destination_packets(size=32) }}
+                </p>
+            </div>
+            <div class="div2"> 
+                <p>
+                    {{ form.destination_port.label }}<br>
+                    {{ form.destination_port(size=32) }}
+                </p>
+                <p>
+                    {{ form.event_duration.label }}<br>
+                    {{ form.event_duration(size=32) }}
+                </p>
+                <p>
+                    {{ form.network_bytes.label }}<br>
+                    {{ form.network_bytes(size=32) }}
+                </p>
+            </div>
+            <div class="div3">
+                <p>
+                    {{ form.source_port.label }}<br>
+                    {{ form.source_port(size=32) }}
+                </p>
+                <p>{{ form.match_all() }} {{ form.match_all.label }}</p>
+                <p>{{ form.submit() }}</p> 
+            </div>
+        </form>
+        </div> 
+    <div> 
     {% if api_response %}
-        <div>Query: {{q_size}}</div>
-        <div>Response time: {{api_response['took']}}s</div>
+        <ul>
+            <li2> <col_text>Total results:</col_text> <col_text2>{{q_size}}</col_text2> <span style="color: #862d7a;"> - </span><col_text>Elastic response time:</col_text> <col_text2>{{api_response['took']}}s</col_tex2t></li2>
+        </ul>
+        <br>
         {% for response in api_response['hits']['hits'] %}
-            <div><p>Response ID: <b>{{  response._id }}</b> Destination packets: <b>{{response._source.destination.packets}}</b> Destination port: <b>{{response._source.destination.port}}</b> Event duration: <b>{{response._source.event.duration}}</b> Network bytes: <b>{{response._source.network.bytes}}</b> Source port: <b>{{response._source.source.port}}</b></p></div>
+        <ul>
+        <!-- <results>Response ID: {{  response._id }} Destination packets: {{response._source.destination.packets}} <br> Destination port: {{response._source.destination.port}} Event duration: {{response._source.event.duration}} Network bytes: {{response._source.network.bytes}} Source port: {{response._source.source.port}}</results> -->
+            <li2><a> <col_text>Response ID: </col_text>{{  response._id }} <col_text><span style="color: #862d7a;"> | </span>Destination packets: </col_text> {{response._source.destination.packets}}<span style="color: #862d7a;"> | </span><col_text>Destination port:</col_text> {{response._source.destination.port}}<span style="color: #862d7a;"> | </span><col_text>Event duration:</col_text> {{response._source.event.duration}}<span style="color: #862d7a;"> | </span><col_text>Network bytes: </col_text>{{response._source.network.bytes}}<span style="color: #862d7a;"> | </span><col_text> Source port:</col_text> {{response._source.source.port}}</a></li2>
+        </ul>
+        <br>
         {% endfor %}
     {% endif %}
+    </div>
+    
 </body>
 </html>

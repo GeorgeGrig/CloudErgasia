@@ -14,5 +14,6 @@ def index():
     elastic_status = status.check_elasticsearch_status()
     kibana_status = status.check_kibana_status()
     if form.validate_on_submit():
-        api_response, q_size = functionality.create_query(form)
+        api_response = functionality.create_query(form)
+        q_size = len(api_response['hits']['hits'])
     return render_template('index.html', title='Home', form=form, q_size=q_size, api_response = api_response, elastic_local = elastic_local, docker_status=docker_status, elastic_status=elastic_status, kibana_status=kibana_status)
