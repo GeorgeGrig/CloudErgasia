@@ -9,9 +9,51 @@
 <body>
     <h3>Status: 
         {% if elastic_local %}<span style="color:green;">Yes</span> 
-        Docker online: {% if docker_status %}<span style="color:green;">Yes</span>{% else %}<span style="color:red;">No</span>{% endif %}
+        Docker online: {% if docker_status %}<span style="color:green;">Yeap</span>{% else %}<span style="color:red;">No</span>{% endif %}
         Elasticsearch: {% if elastic_status %}<span style="color:green;">{{elastic_status}}</span>{% else %}<span style="color:red;">Offline</span>{% endif %}
         Kibana: {% if kibana_status %}<span style="color:green;">{{kibana_status}}</span>{% else %}<span style="color:red;">Offline</span>{% endif %}
-        {% else %}<span style="color:red;">Remote</span>{% endif %}</h3>
+        {% else %}<span style="color:red;">Remote</span>{% endif %}
+    </h3>
+
+    <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.no_results.label }}<br>
+            {{ form.no_results(size=32) }}
+        </p>
+        <p>
+            {{ form.index.label }}<br>
+            {{ form.index(size=32) }}
+        </p>
+        <p>
+            {{ form.destination_packets.label }}<br>
+            {{ form.destination_packets(size=32) }}
+        </p>
+        <p>
+            {{ form.destination_port.label }}<br>
+            {{ form.destination_port(size=32) }}
+        </p>
+        <p>
+            {{ form.event_duration.label }}<br>
+            {{ form.event_duration(size=32) }}
+        </p>
+        <p>
+            {{ form.network_bytes.label }}<br>
+            {{ form.network_bytes(size=32) }}
+        </p>
+        <p>
+            {{ form.source_port.label }}<br>
+            {{ form.source_port(size=32) }}
+        </p>
+        <p>{{ form.match_all() }} {{ form.match_all.label }}</p>
+        <p>{{ form.submit() }}</p>
+    </form>
+    {% if api_response %}
+        <div>Query: {{q_size}}</div>
+        <div>Response time: {{api_response['took']}}s</div>
+        {% for response in api_response['hits']['hits'] %}
+            <div><p>Response ID: <b>{{  response._id }}</b> Destination packets: <b>{{response._source.destination.packets}}</b> Destination port: <b>{{response._source.destination.port}}</b> Event duration: <b>{{response._source.event.duration}}</b> Network bytes: <b>{{response._source.network.bytes}}</b> Source port: <b>{{response._source.source.port}}</b></p></div>
+        {% endfor %}
+    {% endif %}
 </body>
 </html>

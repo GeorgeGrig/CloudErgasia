@@ -12,7 +12,7 @@ if status.is_elastic_local():
     ip = 'localhost'
     verify=True
 else:
-    ip = '192.168.1.9'
+    ip = '192.168.1.14'
     verify=False
 
 # Create the client instance
@@ -98,14 +98,16 @@ myquery = {
 myquery = {
 "bool":{
     "filter": [
-        # {"match": {"destination.packets": '1569'}},
+        {"match": {"destination.packets": "1569"}},
         # {"match": {"_id": 'bnNe2oIBSKjFtKDgBQ1n'}}
     ]
 }
 }
+
+print(type(myquery))
 # myquery={"query": {"match_all": {}}}
 # resp = client.search(index="packetbeat-7.16.0", body=myquery, size=999)
-resp = client.search(index="packetbeat-7.16.0", query= myquery, size=999)
+resp = client.search(index="packetbeat-7.16.0", query= myquery)
 print("Got %d Hits:" % resp['hits']['total']['value'])
 for hit in resp['hits']['hits']:
     print("%(agent)s %(host)s: %(tags)s" % hit["_source"])
