@@ -17,9 +17,12 @@
     </h3> -->
     <ul>
         {% if elastic_local %}
-        <li>Status: <span style="color:#77a733;">Local</span> 
+        <li>Status: <span style="color:#77a733;">Local</span>
+        <span style="color: #862d7a;"> |</span>
         Docker online: {% if docker_status %}<span style="color:#77a733;">Yeap</span>{% else %}<span style="color:#d03344;">No</span>{% endif %}
+        <span style="color: #862d7a;"> |</span>
         Elasticsearch: {% if elastic_status %}<span style="color:#77a733;">{{elastic_status}}</span>{% else %}<span style="color:#d03344;">Offline</span>{% endif %}
+        <span style="color: #862d7a;"> |</span>
         Kibana: {% if kibana_status %}<span style="color:#77a733;">{{kibana_status}}</span>{% else %}<span style="color:#d03344;">Offline</span>{% endif %} </li>
         {% else %}
         <li>Status: <span style="color:#d03344;">Remote</span></li>
