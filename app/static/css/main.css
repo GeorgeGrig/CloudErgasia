@@ -25,18 +25,18 @@ ul {
   }
 
   input {
-    /* width: 65%; */
+    width: 80%;
     overflow: hidden;
     border: 3px solid #751e5f;
     /* border-radius: 4px; */
     padding: 12px 20px;
     border-radius: 12px;
-    background-color: #feffcb
-    /* margin: 8px 0;
-    box-sizing: border-box; */
+    background-color: #ffffe6;
+    box-sizing: border-box;
 }
-input[type=submit]{
-    width: 100%;
+input[type=checkbox]{
+    width: auto;
+    /* padding: 12px 20px; */
 }
 /* input:focus {
     /* width: 100%; */
@@ -47,7 +47,7 @@ input[type=submit]{
   label {
     color: white;
   }
-  .parent {
+  /* .parent {
     padding: 12px 20px;
     display: flex;
     grid-template-columns: repeat(5, 1fr);
@@ -71,8 +71,17 @@ input[type=submit]{
         overflow: hidden;
         padding: 8px 80px;
         grid-area: 1 / 5 / 3 / 6; 
-    } 
+    }  */
 
+th, td {
+  padding: 15px;
+  text-align: center;
+  color: white;
+}   
+
+table {
+  width: 100%;
+}
 ul2 {
         list-style-type: none;
         margin: 0;

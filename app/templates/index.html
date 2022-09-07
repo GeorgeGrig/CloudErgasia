@@ -28,7 +28,7 @@
 
     <form action="" method="post" novalidate>
         {{ form.hidden_tag() }}
-        <div class="parent">
+        <!-- <div class="parent">
             <div class="div1">
                 <p>
                     {{ form.no_results.label }}<br>
@@ -64,7 +64,29 @@
                 </p>
                 <p>{{ form.match_all() }} {{ form.match_all.label }}</p>
                 <p>{{ form.submit() }}</p> 
-            </div>
+            </div> -->
+            <table>
+                <tr>
+                  <th>{{ form.no_results.label }}<br>
+                    {{ form.no_results(size=32) }}</th>
+                  <th>{{ form.index.label }}<br>
+                    {{ form.index(size=32) }}</th>
+                  <th>{{ form.destination_packets.label }}<br>
+                    {{ form.destination_packets(size=32) }}</th>
+                  <th>{{ form.destination_port.label }}<br>
+                    {{ form.destination_port(size=32) }}</th>
+                </tr>
+                <tr>
+                    <th>{{ form.event_duration.label }}<br>
+                        {{ form.event_duration(size=32) }}</th>
+                    <th>{{ form.network_bytes.label }}<br>
+                        {{ form.network_bytes(size=32) }}</th>
+                    <th>{{ form.source_port.label }}<br>
+                        {{ form.source_port(size=32) }}</th>
+                    <th><span>{{ form.match_all() }} {{ form.match_all.label }}</span><br>
+                        {{ form.submit() }}</th>
+                </tr>
+            </table>
         </form>
         </div> 
     <div> 

@@ -10,7 +10,7 @@ if status.is_elastic_local():
     ip = 'localhost'
     verify=True
 else:
-    ip = '192.168.1.14'
+    ip = '192.168.1.12'
     verify=False
 
 # Create the client instance
