@@ -17,12 +17,12 @@
     </h3> -->
     <ul>
         {% if elastic_local %}
-        <li><a>Status: <span style="color:#77a733;">Local</span> </a>
-        <a>Docker online: {% if docker_status %}<span style="color:#77a733;">Yeap</span>{% else %}<span style="color:#d03344;">No</span>{% endif %}</a>
-        <a>Elasticsearch: {% if elastic_status %}<span style="color:#77a733;">{{elastic_status}}</span>{% else %}<span style="color:#d03344;">Offline</span>{% endif %}</a>
-        <a> Kibana: {% if kibana_status %}<span style="color:#77a733;">{{kibana_status}}</span>{% else %}<span style="color:#d03344;">Offline</span>{% endif %} </a></li>
+        <li><a>Status: <span style="color:#77a733;">Local</span> 
+        Docker online: {% if docker_status %}<span style="color:#77a733;">Yeap</span>{% else %}<span style="color:#d03344;">No</span>{% endif %}
+        Elasticsearch: {% if elastic_status %}<span style="color:#77a733;">{{elastic_status}}</span>{% else %}<span style="color:#d03344;">Offline</span>{% endif %}
+         Kibana: {% if kibana_status %}<span style="color:#77a733;">{{kibana_status}}</span>{% else %}<span style="color:#d03344;">Offline</span>{% endif %} </li>
         {% else %}
-        <li><a>Status: <span style="color:#d03344;">Remote</span></a></li>
+        <li>Status: <span style="color:#d03344;">Remote</span></a></li>
         {% endif %}
     </ul> 
 
