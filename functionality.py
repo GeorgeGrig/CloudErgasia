@@ -32,7 +32,7 @@ def create_query(rulia):
         for rule in rulia:
             rule_label = str(rule.label).split('">')[1].split('<')[0]
             # Ignore wildcard * and irrelevant form fields
-            if rule.data.strip() != '*' and rule_label != 'Number of results' and rule_label != 'Source Index' and rule_label != 'Show all entries' and rule_label != 'Search' and rule_label != 'CSRF Token':
+            if  '*' not in rule.data and rule_label != 'Number of results' and rule_label != 'Source Index' and rule_label != 'Show all entries' and rule_label != 'Search' and rule_label != 'CSRF Token':
                 rules = rules + \
                     f"{{'match': {{'{rule.description}': '{rule.data.strip()}'}}}},"
     # Create dictionary from string using the ast command
