@@ -34,10 +34,13 @@ def create_query(rulia):
             # Ignore wildcard * and irrelevant form fields
             if rule.data != '*' and rule_label != 'Number of results' and rule_label != 'Source Index' and rule_label != 'Show all entries' and rule_label != 'Search' and rule_label != 'CSRF Token':
                 rules = rules + \
-                    f"{{'match': {{'{rule.description}': '{rule.data}'}}}},"
+                    f"{{'match': {{'{rule.description}': '{rule.data.strip()}'}}}},"
     # Create dictionary from string using the ast command
     myquery = ast.literal_eval(f"{{'bool': {{'filter': [{rules[:-1]}]}}}}")
     # Make the query to elasticsearch
-    resp = client.search(index=rulia.index.data,
+    try:
+        resp = client.search(index=rulia.index.data,
                          query=myquery, size=int(rulia.no_results.data))
+    except:
+        resp = False
     return resp
