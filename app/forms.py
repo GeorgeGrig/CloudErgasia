@@ -3,7 +3,7 @@ from wtforms import StringField, BooleanField, SubmitField
 from wtforms.validators import DataRequired
 
 # Create search for fields
-class LoginForm(FlaskForm):
+class SearchForm(FlaskForm):
     no_results = StringField(
         'Number of results', default="30", validators=[DataRequired()])
     index = StringField(

@@ -1,6 +1,6 @@
 from flask import render_template, redirect
 from app import app
-from app.forms import LoginForm
+from app.forms import SearchForm
 import status
 import functionality
 
@@ -11,7 +11,7 @@ app.config['SECRET_KEY'] = 'potatoes'
 @app.route('/', methods=['GET', 'POST'])
 def index():
     # Get form submition
-    form = LoginForm()
+    form = SearchForm()
     api_response = False
     q_size = 0
     # Get service status
